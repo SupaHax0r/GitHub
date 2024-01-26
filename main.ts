@@ -1,40 +1,32 @@
 namespace SpriteKind {
     export const platformer = SpriteKind.create()
 }
-mp.onScore(999, function (player2) {
-    mp.gameOverPlayerWin(player2)
-    game.setGameOverEffect(true, effects.starField)
-})
-controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Triple_Jump_Possibly < 3) {
-        let Playa_List: Sprite = null
-        Triple_Jump_Possibly += 1
-        Playa_List.ay = -135
-    }
-})
-controller.combos.attachCombo("adaabaubulabrab", function () {
-	
-})
-controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
-	
-})
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Player, function (sprite, otherSprite) {
-    statusbars.getStatusBarAttachedTo(StatusBarKind.Health, otherSprite).value += -100
-    sprites.destroy(otherSprite, effects.fire, 500)
-})
 function Check_if_out_of_screen (bool: boolean) {
-    if (false || false) {
-    	
-    }
+	
 }
-sprites.onDestroyed(SpriteKind.Player, function (sprite) {
-    music.play(music.createSoundEffect(WaveShape.Square, 1600, 1, 255, 0, 300, SoundExpressionEffect.None, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
-    sprite.setPosition(0, 0)
+controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . . f e 2 f f f f f f 2 e f . . 
+        . . f f f f e e e e f f f f . . 
+        . f f e f b f 4 4 f b f e f f . 
+        . f e e 4 1 f d d f 1 4 e e f . 
+        . . f e e d d d d d d e e f . . 
+        . . . f e e 4 4 4 4 e e f . . . 
+        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `, SpriteKind.Player))
 })
 function GeneratedTilemap () {
     tiles.setCurrentTilemap(tilemap`level1`)
 }
-let Triple_Jump_Possibly = 0
 music.play(music.stringPlayable("E D F A F C5 A E ", 175), music.PlaybackMode.LoopingInBackground)
 scroller.scrollBackgroundWithSpeed(-27, 0, scroller.BackgroundLayer.Layer0)
 scene.setBackgroundImage(img`
@@ -164,7 +156,7 @@ if (controller.anyButton.isPressed()) {
     GeneratedTilemap()
 }
 scroller.scrollBackgroundWithSpeed(0, 0)
-let sidescroll = sprites.create(img`
+let Camera_screen = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -182,5 +174,5 @@ let sidescroll = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     `, SpriteKind.Player)
-scene.cameraFollowSprite(sidescroll)
-sidescroll.setVelocity(30, 0)
+scene.cameraFollowSprite(Camera_screen)
+Camera_screen.setVelocity(30, 0)
