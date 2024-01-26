@@ -4,11 +4,11 @@ namespace SpriteKind {
 }
 function Check_if_out_of_screen (end: Sprite) {
     for (let index = 0; index <= Playa_List.length; index++) {
-        xdist = 0
-        ydist = 0
-        dist = 0
-        if (true) {
-        	
+        xdist = Camera_screen.x - end.y
+        ydist = Camera_screen.x - end.y
+        dist = Math.sqrt(xdist - (2 + (ydist - 2)))
+        if (dist > 45) {
+            sprites.destroy(Playa_List[index], effects.trail, 500)
         } else {
         	
         }
@@ -983,9 +983,9 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
 function GeneratedTilemap () {
 	
 }
-let Camera_screen: Sprite = null
 let dist = 0
 let ydist = 0
+let Camera_screen: Sprite = null
 let xdist = 0
 let Playa_List: Sprite[] = []
 music.play(music.stringPlayable("E D F A F C5 A E ", 175), music.PlaybackMode.LoopingInBackground)
@@ -1112,3 +1112,8 @@ scene.setBackgroundImage(img`
     1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
     1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
     `)
+forever(function () {
+    if (controller.menu.isPressed()) {
+        Check_if_out_of_screen(Camera_screen)
+    }
+})
