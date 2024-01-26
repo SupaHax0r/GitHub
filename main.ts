@@ -1,10 +1,12 @@
 namespace SpriteKind {
     export const platformer = SpriteKind.create()
+    export const Camera = SpriteKind.create()
 }
 function Check_if_out_of_screen (bool: boolean) {
 	
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    tiles.setCurrentTilemap(tilemap`level1`)
     Camera_screen = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
@@ -22,10 +24,9 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Player)
+        `, SpriteKind.Camera)
     scene.cameraFollowSprite(Camera_screen)
     Camera_screen.setVelocity(0, 30)
-    tiles.setCurrentTilemap(tilemap`level1`)
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
         . . . . . . f f f f . . . . . . 
         . . . . f f f 2 2 f f f . . . . 
@@ -44,7 +45,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . f f f f f f . . . . . 
         . . . . . f f . . f f . . . . . 
         `, SpriteKind.Player))
-    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(0, 0))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)), tiles.getTileLocation(randint(2, 10), 253))
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two), sprites.create(img`
         . . . . . . 5 . 5 . . . . . . . 
         . . . . . f 5 5 5 f f . . . . . 
@@ -63,7 +64,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . f f f f f f f f f f . . . 
         . . . . . f f . . f f . . . . . 
         `, SpriteKind.Player))
-    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), tiles.getTileLocation(0, 0))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)), tiles.getTileLocation(randint(2, 10), 253))
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three), sprites.create(img`
         . . . . . f f 4 4 f f . . . . . 
         . . . . f 5 4 5 5 4 5 f . . . . 
@@ -82,7 +83,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . f f 1 d 1 d 1 d f f . . . 
         . . . . . f f b b f f . . . . . 
         `, SpriteKind.Player))
-    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)), tiles.getTileLocation(0, 0))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)), tiles.getTileLocation(randint(2, 10), 253))
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four), sprites.create(img`
         . . . . f f f f f . . . . . . . 
         . . . f e e e e e f . . . . . . 
@@ -101,16 +102,16 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . f d d c d d b b d f . . . 
         . . . . f f f f f f f f f . . . 
         `, SpriteKind.Player))
-    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)), tiles.getTileLocation(0, 0))
+    tiles.placeOnTile(mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)), tiles.getTileLocation(randint(2, 10), 253))
     Playa_List = [
-    0,
-    1,
-    0,
-    0
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)),
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)),
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)),
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four))
     ]
     if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.One), mp.MultiplayerButton.Right)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)),
         [img`
             . . . . . . . . . . . . . . . . 
             . . . . . f f f f f f . . . . . 
@@ -185,7 +186,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     } else if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.One), mp.MultiplayerButton.Left)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)),
         [img`
             . . . . . . . . . . . . . . . . 
             . . . . . f f f f f f . . . . . 
@@ -260,7 +261,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     } else if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.One), mp.MultiplayerButton.Up)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)),
         [img`
             . . . . . . f f f f . . . . . . 
             . . . . f f e e e e f f . . . . 
@@ -338,7 +339,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     }
     if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Two), mp.MultiplayerButton.Right)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)),
         [img`
             . . . . . . . 5 . 5 . . . . . . 
             . . . . . . f 5 5 5 f . . . . . 
@@ -396,7 +397,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     } else if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Two), mp.MultiplayerButton.Left)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)),
         [img`
             . . . . . . 5 . 5 . . . . . . . 
             . . . . . f 5 5 5 f . . . . . . 
@@ -454,7 +455,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     } else if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Two), mp.MultiplayerButton.Up)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)),
         [img`
             . . . . . . . 5 5 . . . . . . . 
             . . . . . f 5 5 5 5 f . . . . . 
@@ -515,7 +516,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     }
     if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Three), mp.MultiplayerButton.Right)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)),
         [img`
             . . . . . . f f f f 4 4 f . . . 
             . . . . f f b f 5 4 5 5 4 f . . 
@@ -556,7 +557,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     } else if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Three), mp.MultiplayerButton.Left)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)),
         [img`
             . . . f 4 4 f f f f . . . . . . 
             . . f 4 5 5 4 5 f b f f . . . . 
@@ -597,7 +598,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     } else if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Three), mp.MultiplayerButton.Up)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)),
         [img`
             . . . . . f f 4 4 f f . . . . . 
             . . . . f 5 4 5 5 4 5 f . . . . 
@@ -675,7 +676,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     }
     if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Four), mp.MultiplayerButton.Right)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)),
         [img`
             . . . . . . . f f f f f . . . . 
             . . . . . . f e e e e e f . . . 
@@ -767,7 +768,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     } else if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Four), mp.MultiplayerButton.Left)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)),
         [img`
             . . . . f f f f f . . . . . . . 
             . . . f e e e e e f . . . . . . 
@@ -859,7 +860,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         )
     } else if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.Four), mp.MultiplayerButton.Up)) {
         animation.runImageAnimation(
-        null,
+        mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)),
         [img`
             . . . . . . . f f f f f . . . . 
             . . . . . . f e e e e e f . . . 
@@ -973,7 +974,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
 function GeneratedTilemap () {
 	
 }
-let Playa_List: number[] = []
+let Playa_List: Sprite[] = []
 let Camera_screen: Sprite = null
 music.play(music.stringPlayable("E D F A F C5 A E ", 175), music.PlaybackMode.LoopingInBackground)
 scroller.scrollBackgroundWithSpeed(-27, 0, scroller.BackgroundLayer.Layer0)
