@@ -1,6 +1,6 @@
 namespace SpriteKind {
-    export const platformer = SpriteKind.create()
     export const Camera = SpriteKind.create()
+    export const greeting = SpriteKind.create()
 }
 function Check_if_out_of_screen (end: Sprite) {
     for (let index = 0; index <= Playa_List.length; index++) {
@@ -15,6 +15,7 @@ function Check_if_out_of_screen (end: Sprite) {
     }
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    sprites.destroy(textsprite, effects.fire, 1000)
     tiles.setCurrentTilemap(tilemap`level1`)
     Camera_screen = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -988,8 +989,9 @@ let ydist = 0
 let Camera_screen: Sprite = null
 let xdist = 0
 let Playa_List: Sprite[] = []
+let textsprite: Sprite = null
 music.play(music.stringPlayable("E D F A F C5 A E ", 175), music.PlaybackMode.LoopingInBackground)
-scroller.scrollBackgroundWithSpeed(-27, 0, scroller.BackgroundLayer.Layer0)
+scroller.scrollBackgroundWithSpeed(-27, 0)
 scene.setBackgroundImage(img`
     8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
     8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
@@ -1112,6 +1114,25 @@ scene.setBackgroundImage(img`
     1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
     1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
     `)
+textsprite = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.greeting)
+textsprite.sayText("フォール・シュミレーターへようこそ", 2000, false)
 forever(function () {
     if (controller.menu.isPressed()) {
         Check_if_out_of_screen(Camera_screen)
