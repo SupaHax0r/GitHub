@@ -1,13 +1,64 @@
+@namespace
+class SpriteKind:
+    platformer = SpriteKind.create()
+
 def on_on_score(player2):
     mp.game_over_player_win(player2)
     game.set_game_over_effect(True, effects.star_field)
 mp.on_score(999, on_on_score)
 
-def on_combos_attach_combo():
-    pass
-controller.combos.attach_combo("adaabaubulabrab", on_combos_attach_combo)
+def on_on_overlap(sprite, otherSprite):
+    statusbars.get_status_bar_attached_to(StatusBarKind.health, otherSprite).value += -100
+    sprites.destroy(otherSprite, effects.fire, 500)
+sprites.on_overlap(SpriteKind.projectile, SpriteKind.player, on_on_overlap)
 
-def on_on_destroyed(sprite):
+def on_on_overlap2(sprite2, otherSprite2):
+    global myDart
+    music.play(music.melody_playable(music.beam_up),
+        music.PlaybackMode.UNTIL_DONE)
+    myDart += 1
+sprites.on_overlap(SpriteKind.player, SpriteKind.projectile, on_on_overlap2)
+
+def outofscreen(x: number, _2x: number, y: number, _2y: number):
+    mySprite4: Sprite = None
+    mySprite3: Sprite = None
+    mySprite2: Sprite = None
+    mySprite: Sprite = None
+    x = scene.camera_property(CameraProperty.X) + 81
+    _2x = scene.camera_property(CameraProperty.X) - 81
+    x = x
+    _2x = _2x
+    y = scene.camera_property(CameraProperty.X) + 61
+    _2y = scene.camera_property(CameraProperty.X) + 61
+    y = y
+    _2y = _2y
+    if mySprite.x < x or mySprite.x > _2x:
+        sprites.destroy(mySprite, effects.warm_radial, 500)
+    elif mySprite.y < y or mySprite.y > _2y:
+        sprites.destroy(mySprite, effects.warm_radial, 500)
+    else:
+        pass
+    if mySprite2.x < x or mySprite2.x > _2x:
+        sprites.destroy(mySprite2, effects.warm_radial, 500)
+    elif mySprite2.y < y or mySprite2.y > _2y:
+        sprites.destroy(mySprite2, effects.warm_radial, 500)
+    else:
+        pass
+    if mySprite3.x < x or mySprite3.x > _2x:
+        sprites.destroy(mySprite3, effects.warm_radial, 500)
+    elif mySprite3.y < y or mySprite3.y > _2y:
+        sprites.destroy(mySprite3, effects.warm_radial, 500)
+    else:
+        pass
+    if mySprite4.x < x or mySprite4.x > _2x:
+        sprites.destroy(mySprite4, effects.warm_radial, 500)
+    elif mySprite4.y < y or mySprite4.y > _2y:
+        sprites.destroy(mySprite4, effects.warm_radial, 500)
+    else:
+        pass
+    return 0
+
+def on_on_destroyed(sprite3):
     music.play(music.create_sound_effect(WaveShape.SQUARE,
             1600,
             1,
@@ -17,13 +68,20 @@ def on_on_destroyed(sprite):
             SoundExpressionEffect.NONE,
             InterpolationCurve.CURVE),
         music.PlaybackMode.UNTIL_DONE)
-    sprite.set_position(0, 0)
+    sprite3.set_position(0, 0)
 sprites.on_destroyed(SpriteKind.player, on_on_destroyed)
 
 def GeneratedTilemap():
-    pass
-scroller.scroll_background_with_speed(-50, 1)
-scroller.scroll_background_with_camera(scroller.CameraScrollMode.ONLY_HORIZONTAL)
+    tiles.set_current_tilemap(tilemap("""
+        level1
+    """))
+_2y2 = 0
+y2 = 0
+_2x2 = 0
+x2 = 0
+myDart = 0
+music.play(music.string_playable("E D F A F C5 A E ", 175),
+    music.PlaybackMode.LOOPING_IN_BACKGROUND)
 scene.set_background_image(img("""
     8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
         8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
@@ -146,3 +204,30 @@ scene.set_background_image(img("""
         1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
         1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
 """))
+scroller.scroll_background_with_speed(-50, 0)
+SpriteText = sprites.create(img("""
+        . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . .
+    """),
+    SpriteKind.projectile)
+SpriteText.say_text("Press anything to start Also don't move left 1st press 2 other buttons before that",
+    5000,
+    False)
+
+def on_forever():
+    pass
+forever(on_forever)
