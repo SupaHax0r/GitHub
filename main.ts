@@ -2,8 +2,17 @@ namespace SpriteKind {
     export const platformer = SpriteKind.create()
     export const Camera = SpriteKind.create()
 }
-function Check_if_out_of_screen (bool: boolean) {
-	
+function Check_if_out_of_screen (end: Sprite) {
+    for (let index = 0; index <= Playa_List.length; index++) {
+        xdist = 0
+        ydist = 0
+        dist = 0
+        if (true) {
+        	
+        } else {
+        	
+        }
+    }
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     tiles.setCurrentTilemap(tilemap`level1`)
@@ -974,8 +983,11 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
 function GeneratedTilemap () {
 	
 }
-let Playa_List: Sprite[] = []
 let Camera_screen: Sprite = null
+let dist = 0
+let ydist = 0
+let xdist = 0
+let Playa_List: Sprite[] = []
 music.play(music.stringPlayable("E D F A F C5 A E ", 175), music.PlaybackMode.LoopingInBackground)
 scroller.scrollBackgroundWithSpeed(-27, 0, scroller.BackgroundLayer.Layer0)
 scene.setBackgroundImage(img`
