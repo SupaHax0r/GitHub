@@ -2,12 +2,15 @@ namespace SpriteKind {
     export const Camera = SpriteKind.create()
     export const greeting = SpriteKind.create()
 }
+controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vy = -150
+})
 function Check_if_out_of_screen (end: Sprite) {
     while (index <= Playa_List.length) {
         xdist = Camera_screen.x - end.y
         ydist = Camera_screen.x - end.y
         dist = Math.sqrt(xdist - (2 + (ydist - 2)))
-        if (dist > 45) {
+        if (dist > 20) {
             sprites.destroy(Playa_List[index], effects.trail, 500)
         } else {
         	
@@ -15,8 +18,12 @@ function Check_if_out_of_screen (end: Sprite) {
         index += 1
     }
 }
+controller.player4.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)).vy = -150
+})
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    music.play(music.createSong(hex`00780004080200`), music.PlaybackMode.LoopingInBackground)
+    music.stopAllSounds()
+    music.play(music.stringPlayable("C C5 G D B E G E ", 300), music.PlaybackMode.LoopingInBackground)
     sprites.destroy(textsprite, effects.warmRadial, 5000)
     scroller.scrollBackgroundWithSpeed(0, 0)
     scene.setBackgroundImage(img`
@@ -160,9 +167,9 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Camera)
-    scene.cameraFollowSprite(Camera_screen)
-    Camera_screen.setVelocity(0, 30)
     tiles.placeOnTile(Camera_screen, tiles.getTileLocation(9, 253))
+    Camera_screen.setVelocity(0, -30)
+    scene.cameraFollowSprite(Camera_screen)
     mp.setPlayerSprite(mp.playerSelector(mp.PlayerNumber.One), sprites.create(img`
         . . . . . . f f f f . . . . . . 
         . . . . f f f 2 2 f f f . . . . 
@@ -1107,11 +1114,21 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     } else {
     	
     }
-    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), 45, 45)
-    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Two), 45, 45)
-    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Three), 45, 45)
-    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Four), 45, 45)
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).ay = 100
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).ay = 600
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)).ay = 600
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)).ay = 600
+    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), 45, 0)
+    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Two), 45, 0)
+    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Three), 45, 0)
+    mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Four), 45, 0)
     GeneratedTilemap()
+})
+controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy = -150
+})
+controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)).vy = -150
 })
 function GeneratedTilemap () {
     current_position = tiles.locationOfSprite(Camera_screen)
@@ -1133,7 +1150,7 @@ function GeneratedTilemap () {
                 current_position = tiles.locationInDirection(current_position, CollisionDirection.Left)
             }
         }
-        for (let index2 = 0; index2 < 3; index2++) {
+        for (let index2 = 0; index2 < randint(1, 2); index2++) {
             tiles.setTileAt(current_position, sprites.dungeon.stairWest)
             tiles.setWallAt(current_position, true)
             current_position = tiles.locationInDirection(current_position, CollisionDirection.Right)
