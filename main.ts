@@ -4,10 +4,11 @@ namespace SpriteKind {
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     for (let index = 0; index <= list.length; index++) {
-        if (!(null.isHittingTile(CollisionDirection.Left))) {
-        	
+        if (!(list[index].isHittingTile(CollisionDirection.Top))) {
+            let triplejump: number[] = []
+            triplejump[index] = _0_variable
         }
-        if (null.isHittingTile(CollisionDirection.Left) || null.isHittingTile(CollisionDirection.Left)) {
+        if (list[index].isHittingTile(CollisionDirection.Left) || list[index].isHittingTile(CollisionDirection.Left)) {
         	
         }
     }
@@ -271,6 +272,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).x = 500
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)).x = 500
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)).x = 500
+    _0_variable = 0
     jump1 = 0
     jump2 = 0
     jump3 = 0
@@ -1201,6 +1203,7 @@ let xdist = 0
 let Playa_List: Sprite[] = []
 let index = 0
 let jump2 = 0
+let _0_variable = 0
 let list: number[] = []
 let textsprite: Sprite = null
 let movingdirection : number = null
