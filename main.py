@@ -17,6 +17,10 @@ def Check_if_out_of_screen(end: Sprite):
 
 def on_menu_pressed():
     global Camera_screen, Playa_List
+    music.play(music.create_song(hex("""
+            00780004080200
+        """)),
+        music.PlaybackMode.LOOPING_IN_BACKGROUND)
     sprites.destroy(textsprite, effects.warm_radial, 5000)
     scroller.scroll_background_with_speed(0, 0)
     scene.set_background_image(img("""
@@ -164,7 +168,6 @@ def on_menu_pressed():
         """),
         SpriteKind.Camera)
     scene.camera_follow_sprite(Camera_screen)
-    Camera_screen.set_velocity(0, 30)
     tiles.place_on_tile(Camera_screen, tiles.get_tile_location(9, 253))
     mp.set_player_sprite(mp.player_selector(mp.PlayerNumber.ONE),
         sprites.create(img("""
@@ -254,6 +257,7 @@ def on_menu_pressed():
             SpriteKind.player))
     tiles.place_on_tile(mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.FOUR)),
         tiles.get_tile_location(randint(2, 10), 253))
+    Camera_screen.set_velocity(0, 30)
     Playa_List = [mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.ONE)),
         mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.TWO)),
         mp.get_player_sprite(mp.player_selector(mp.PlayerNumber.THREE)),
@@ -1136,12 +1140,17 @@ def on_menu_pressed():
             True)
     else:
         pass
+    mp.move_with_buttons(mp.player_selector(mp.PlayerNumber.ONE), 45, 45)
+    mp.move_with_buttons(mp.player_selector(mp.PlayerNumber.TWO), 45, 45)
+    mp.move_with_buttons(mp.player_selector(mp.PlayerNumber.THREE), 45, 45)
+    mp.move_with_buttons(mp.player_selector(mp.PlayerNumber.FOUR), 45, 45)
+    GeneratedTilemap()
 controller.menu.on_event(ControllerButtonEvent.PRESSED, on_menu_pressed)
 
 def GeneratedTilemap():
     global current_position, movingdirection
     current_position = tiles.location_of_sprite(Camera_screen)
-    while tiles.location_xy(current_position, tiles.XY.COLUMN) > 0:
+    while tiles.location_xy(current_position, tiles.XY.ROW) > 0:
         for index2 in range(4):
             current_position = tiles.location_in_direction(current_position, CollisionDirection.TOP)
         if Math.percent_chance(50):
@@ -1152,9 +1161,9 @@ def GeneratedTilemap():
             if tiles.location_xy(current_position, tiles.XY.COLUMN) > 0 and tiles.location_xy(current_position, tiles.XY.COLUMN) < tiles.tilemap_columns() - 4:
                 current_position = tiles.location_in_direction(current_position, movingdirection)
             elif 0 < 0:
-                current_position = tiles.location_in_direction(current_position, CollisionDirection.LEFT)
-            else:
                 current_position = tiles.location_in_direction(current_position, CollisionDirection.RIGHT)
+            else:
+                current_position = tiles.location_in_direction(current_position, CollisionDirection.LEFT)
         for index4 in range(3):
             tiles.set_tile_at(current_position, sprites.dungeon.stair_west)
             tiles.set_wall_at(current_position, True)
@@ -1169,7 +1178,7 @@ Camera_screen: Sprite = None
 xdist = 0
 Playa_List: List[Sprite] = []
 textsprite: Sprite = None
-music.play(music.string_playable("E D F A F C5 A E ", 175),
+music.play(music.string_playable("F G F D F D C D ", 175),
     music.PlaybackMode.LOOPING_IN_BACKGROUND)
 scroller.scroll_background_with_speed(-27, 0)
 scene.set_background_image(img("""
