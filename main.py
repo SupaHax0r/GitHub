@@ -17,7 +17,7 @@ def Check_if_out_of_screen(end: Sprite):
 
 def on_menu_pressed():
     global Camera_screen, Playa_List
-    sprites.destroy(textsprite, effects.warm_radial, 2000)
+    sprites.destroy(textsprite, effects.warm_radial, 5000)
     scroller.scroll_background_with_speed(0, 0)
     scene.set_background_image(img("""
         8fffffffffffffffffffffffff88fffff88ffff8998889999999989988888989999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -1149,16 +1149,18 @@ def GeneratedTilemap():
         else:
             movingdirection = CollisionDirection.RIGHT
         for index3 in range(randint(3, 12)):
-            if tiles.location_xy(current_position, tiles.XY.COLUMN) > 0 and 0 < 0:
-                pass
+            if tiles.location_xy(current_position, tiles.XY.COLUMN) > 0 and tiles.location_xy(current_position, tiles.XY.COLUMN) < tiles.tilemap_columns() - 4:
+                current_position = tiles.location_in_direction(current_position, movingdirection)
             elif 0 < 0:
-                pass
+                current_position = tiles.location_in_direction(current_position, CollisionDirection.LEFT)
             else:
-                pass
-        for index4 in range(4):
-            pass
+                current_position = tiles.location_in_direction(current_position, CollisionDirection.RIGHT)
+        for index4 in range(3):
+            tiles.set_tile_at(current_position, sprites.dungeon.stair_west)
+            tiles.set_wall_at(current_position, True)
+            current_position = tiles.location_in_direction(current_position, CollisionDirection.RIGHT)
         for index5 in range(3):
-            pass
+            current_position = tiles.location_in_direction(current_position, CollisionDirection.LEFT)
 movingdirection: CollisionDirection = None
 current_position: tiles.Location = None
 dist = 0
