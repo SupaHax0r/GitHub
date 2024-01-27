@@ -17,6 +17,7 @@ def Check_if_out_of_screen(end: Sprite):
 
 def on_menu_pressed():
     global Camera_screen, Playa_List
+    sprites.destroy(textsprite, effects.warm_radial, 2000)
     scroller.scroll_background_with_speed(0, 0)
     scene.set_background_image(img("""
         8fffffffffffffffffffffffff88fffff88ffff8998889999999989988888989999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -140,7 +141,6 @@ def on_menu_pressed():
                 6cccccccccccccc66666ccccccccccccccccccc6666cccc6644bccccccccccccc8666666666666f66666ffffffff666666666666666666ccccccccccccccccccccccccccccccccccccccccccccccccc8
                 6cccccccccccccc66666ccccccccccccccccccc666ccccc6666ccccccccccccccf666666666666ff6666ffffffff6666666666666666666ccccccccccccccc6cccccccccccccccccccccccccccccccc8
     """))
-    sprites.destroy(textsprite, effects.warm_radial, 2000)
     tiles.set_current_tilemap(tilemap("""
         level1
     """))
@@ -1139,11 +1139,27 @@ def on_menu_pressed():
 controller.menu.on_event(ControllerButtonEvent.PRESSED, on_menu_pressed)
 
 def GeneratedTilemap():
-    global current_position
+    global current_position, movingdirection
     current_position = tiles.location_of_sprite(Camera_screen)
     while tiles.location_xy(current_position, tiles.XY.COLUMN) > 0:
         for index2 in range(4):
+            current_position = tiles.location_in_direction(current_position, CollisionDirection.TOP)
+        if Math.percent_chance(50):
+            movingdirection = CollisionDirection.LEFT
+        else:
+            movingdirection = CollisionDirection.RIGHT
+        for index3 in range(randint(3, 12)):
+            if tiles.location_xy(current_position, tiles.XY.COLUMN) > 0 and 0 < 0:
+                pass
+            elif 0 < 0:
+                pass
+            else:
+                pass
+        for index4 in range(4):
             pass
+        for index5 in range(3):
+            pass
+movingdirection: CollisionDirection = None
 current_position: tiles.Location = None
 dist = 0
 ydist = 0

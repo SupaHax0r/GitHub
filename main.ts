@@ -15,6 +15,7 @@ function Check_if_out_of_screen (end: Sprite) {
     }
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    sprites.destroy(textsprite, effects.warmRadial, 2000)
     scroller.scrollBackgroundWithSpeed(0, 0)
     scene.setBackgroundImage(img`
         8fffffffffffffffffffffffff88fffff88ffff8998889999999989988888989999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -138,7 +139,6 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         6cccccccccccccc66666ccccccccccccccccccc6666cccc6644bccccccccccccc8666666666666f66666ffffffff666666666666666666ccccccccccccccccccccccccccccccccccccccccccccccccc8
         6cccccccccccccc66666ccccccccccccccccccc666ccccc6666ccccccccccccccf666666666666ff6666ffffffff6666666666666666666ccccccccccccccc6cccccccccccccccccccccccccccccccc8
         `)
-    sprites.destroy(textsprite, effects.warmRadial, 2000)
     tiles.setCurrentTilemap(tilemap`level1`)
     Camera_screen = sprites.create(img`
         . . . . . . . . . . . . . . . . 
@@ -1109,10 +1109,31 @@ function GeneratedTilemap () {
     current_position = tiles.locationOfSprite(Camera_screen)
     while (tiles.locationXY(current_position, tiles.XY.column) > 0) {
         for (let index = 0; index < 4; index++) {
+            current_position = tiles.locationInDirection(current_position, CollisionDirection.Top)
+        }
+        if (Math.percentChance(50)) {
+            movingdirection = CollisionDirection.Left
+        } else {
+            movingdirection = CollisionDirection.Right
+        }
+        for (let index = 0; index < randint(3, 12); index++) {
+            if (tiles.locationXY(current_position, tiles.XY.column) > 0 && 0 < 0) {
+            	
+            } else if (0 < 0) {
+            	
+            } else {
+            	
+            }
+        }
+        for (let index = 0; index < 4; index++) {
+        	
+        }
+        for (let index = 0; index < 3; index++) {
         	
         }
     }
 }
+let movingdirection: CollisionDirection = null
 let current_position: tiles.Location = null
 let dist = 0
 let ydist = 0
