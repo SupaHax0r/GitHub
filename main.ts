@@ -2,7 +2,20 @@ namespace SpriteKind {
     export const Camera = SpriteKind.create()
     export const greeting = SpriteKind.create()
 }
+scene.onHitWall(SpriteKind.Player, function (sprite, location) {
+    for (let index = 0; index <= Playa_List.length; index++) {
+        if (!(Playa_List[index].isHittingTile(CollisionDirection.Left))) {
+            triplejumppossibly[0] = index
+        }
+        if (false || false) {
+        	
+        }
+    }
+})
 controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    if (jump2 < randint(2, 3)) {
+        jump2 += 1
+    }
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vy = -150
 })
 function Check_if_out_of_screen (end: Sprite) {
@@ -19,6 +32,9 @@ function Check_if_out_of_screen (end: Sprite) {
     }
 }
 controller.player4.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    if (jump4 < randint(2, 3)) {
+        jump4 += 1
+    }
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)).vy = -150
 })
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -252,6 +268,16 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)),
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)),
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four))
+    ]
+    jump1 = 0
+    jump2 = 0
+    jump3 = 0
+    jump4 = 0
+    triplejumppossibly = [
+    jump1,
+    jump2,
+    jump3,
+    jump4
     ]
     if (mp.isButtonPressed(mp.playerSelector(mp.PlayerNumber.One), mp.MultiplayerButton.Right)) {
         animation.runImageAnimation(
@@ -1125,9 +1151,15 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     GeneratedTilemap()
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    if (jump1 < randint(2, 3)) {
+        jump1 += 1
+    }
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).vy = -150
 })
 controller.player3.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
+    if (jump3 < randint(2, 3)) {
+        jump4 += 1
+    }
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)).vy = -150
 })
 function GeneratedTilemap () {
@@ -1161,12 +1193,17 @@ function GeneratedTilemap () {
     }
 }
 let current_position: tiles.Location = null
+let jump3 = 0
+let jump1 = 0
+let jump4 = 0
 let dist = 0
 let ydist = 0
 let Camera_screen: Sprite = null
 let xdist = 0
-let Playa_List: Sprite[] = []
 let index = 0
+let jump2 = 0
+let triplejumppossibly: number[] = []
+let Playa_List: Sprite[] = []
 let textsprite: Sprite = null
 let movingdirection : number = null
 music.play(music.stringPlayable("F G F D F D C D ", 175), music.PlaybackMode.LoopingInBackground)
