@@ -3,12 +3,20 @@ namespace SpriteKind {
     export const greeting = SpriteKind.create()
 }
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
-    for (let index = 0; index <= Playa_List.length; index++) {
-        if (!(Playa_List[index].isHittingTile(CollisionDirection.Top))) {
-        	
+    for (let index = 0; index <= Playa_List.length - 1; index++) {
+        if (Playa_List[index] == sprite) {
+            if (index == 0) {
+                jump1 = 0
+            } else if (index == 1) {
+                jump2 = 0
+            } else if (index == 2) {
+                jump3 = 0
+            } else {
+                jump4 = 0
+            }
         }
-        if (Playa_List[index].isHittingTile(CollisionDirection.Right) || Playa_List[index].isHittingTile(CollisionDirection.Left)) {
-            Playa_List[index].vy = 0
+        if (Playa_List[0].isHittingTile(CollisionDirection.Right) || Playa_List[0].isHittingTile(CollisionDirection.Left)) {
+            Playa_List[0].vy = 0
         }
     }
 })
@@ -25,6 +33,7 @@ controller.player4.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
     }
 })
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    music.stopAllSounds()
     sprites.destroy(textsprite, effects.warmRadial, 5000)
     scroller.scrollBackgroundWithSpeed(0, 0)
     scene.setBackgroundImage(img`
@@ -252,7 +261,6 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)),
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four))
     ]
-    _0_variable = 0
     jump1 = 0
     jump2 = 0
     jump3 = 0
@@ -264,20 +272,21 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     jump4
     ]
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).ay = 300
-    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vy = 300
-    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)).vy = 300
-    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)).vy = 300
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).ay = 300
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)).ay = 300
+    mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)).ay = 300
     mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.One), 45, 0)
     mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Two), 45, 0)
     mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Three), 45, 0)
     mp.moveWithButtons(mp.playerSelector(mp.PlayerNumber.Four), 45, 0)
     GeneratedTilemap(game.askForNumber("more=harder don't choose 1", 1), game.askForNumber("more=easier", 1))
+    music.play(music.stringPlayable("F A E B E G D E ", 175), music.PlaybackMode.LoopingInBackground)
     pause(1000)
-    Camera_screen.setVelocity(0, -30)
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.One)).setFlag(SpriteFlag.AutoDestroy, true)
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).setFlag(SpriteFlag.AutoDestroy, true)
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Three)).setFlag(SpriteFlag.AutoDestroy, true)
     mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Four)).setFlag(SpriteFlag.AutoDestroy, true)
+    Camera_screen.setVelocity(0, -30)
 })
 controller.player1.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (jump1 < randint(2, 3)) {
@@ -323,12 +332,11 @@ function GeneratedTilemap (DifficultyModel: number, Difficultymode2: number) {
 }
 let current_position: tiles.Location = null
 let triplejump: number[] = []
-let jump3 = 0
-let jump1 = 0
-let _0_variable = 0
 let Camera_screen: Sprite = null
 let jump4 = 0
+let jump3 = 0
 let jump2 = 0
+let jump1 = 0
 let Playa_List: Sprite[] = []
 let textsprite: Sprite = null
 let movingdirection : number = null
