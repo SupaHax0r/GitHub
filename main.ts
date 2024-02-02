@@ -26,6 +26,11 @@ controller.player2.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Press
         mp.getPlayerSprite(mp.playerSelector(mp.PlayerNumber.Two)).vy = -150
     }
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.builtin.forestTiles12, function (sprite, location) {
+    pause(200)
+    game.showLongText("37 66 109 90 68 79 48 37 94 106 87 99 79 76 65 97 109 59 99 48 48 37 97 109 87 96 79 76 65 94 109 87 96 79 79 65 94 109 90 96 46 46 45 74 76 67 66 46 55 44 73 86 67 75 55 56 45 64 86 57 66 46 56 45 73 85 67 75 55 55 45 73 85 67 76 55 55 45 74 85", DialogLayout.Full)
+    pause(2000)
+})
 controller.player4.onButtonEvent(ControllerButton.A, ControllerButtonEvent.Pressed, function () {
     if (jump4 < randint(2, 3)) {
         jump4 += 1
